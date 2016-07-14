@@ -1,0 +1,50 @@
+---
+
+- name: create playbook top directory
+  file: >
+    path='{{ where }}'
+    state=directory
+
+- name: create sub directories
+  file: >
+    path='{{ where }}/{{ item }}'
+    state=directory
+  with_items:
+    - production
+    - staging
+    - library
+    - filter_plugins
+    - roles
+
+- name: create deployment directories
+  file: >
+    path='{{ where }}/{{ item[0] }}/{{ item[1] }}'
+    state=directory
+  with_nested:
+    - [ production, staging ]
+    - [ group_vars, host_vars ]
+
+- name: create roles directories
+  file: >
+    path='{{ where }}/roles/{{ item[0] }}/{{ item[1]}}'
+    state=directory
+  with_nested:
+    - [ common, webtier, dbtier ]
+    - [ tasks, handlers, templates, filters, vars, defaults, meta ]
+
+- name: copy hosts files
+  copy: >
+    src='inventory/hosts'
+    dest='{{ where }}/{{ item }}'
+  with_items:
+    - production
+    - staging
+
+- name: copy playbooks
+  copy: >
+    src='playbooks/{{ item }}'
+    dest='{{ where }}'
+  with_items:
+    - site.yml
+    - webservers.yml
+    - dbservers.yml
