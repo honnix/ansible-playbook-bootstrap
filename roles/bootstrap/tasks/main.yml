@@ -72,3 +72,9 @@
   with_items:
     - tasks
     - handlers
+
+- name: fill in empty directories
+  shell: find . -type d -empty -exec touch {}/.gitignore \;
+  args:
+    chdir: '{{ where }}'
+  when: '{{ fill_in_empty }}'

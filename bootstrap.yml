@@ -1,5 +1,8 @@
 ---
 # file: bootstrap.yml
 - hosts: [all]
+  vars:
+    where: ../playbooks
+    fill_in_empty: true
   roles:
     - bootstrap
