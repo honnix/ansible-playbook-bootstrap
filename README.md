@@ -9,8 +9,8 @@ $ cd ansible-playbooks-bootstrap
 $ ansible-playbook -i inventory site.yml
 ```
 
-This will create a directory named `playbooks` the same directory where
-the repository is. For example if the repository is
+This will create a directory named `playbooks` in the same directory
+where the repository sits. For example if the repository is
 `~/ansible-playbooks-bootstrap`, then `~/playbooks` will be created.
 However if this is not what you want, run this instead:
 
