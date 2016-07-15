@@ -1,5 +1,5 @@
 ---
-
+# file: bootstrap.yml
 - hosts: [all]
   roles:
     - bootstrap
